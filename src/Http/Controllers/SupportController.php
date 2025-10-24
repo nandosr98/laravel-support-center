@@ -3,6 +3,7 @@
 namespace LaravelSupportCenter\Http\Controllers;
 
 use Illuminate\Http\Request;
+use LaravelSupportCenter\Models\SupportTicket;
 
 class SupportController
 {
