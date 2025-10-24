@@ -1,6 +1,9 @@
 <?php
 
-// config for LaravelSupportCenter/LaravelSupportCenter
 return [
-
+    'models' => [
+        'user' => null,
+    ],
+    'layout' => 'x-app-layout',
+    'media_collection' => 'support_attachments',
 ];

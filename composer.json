@@ -18,7 +18,8 @@
     "require": {
         "php": "^8.4",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0||^12.0"
+        "illuminate/contracts": "^11.0||^12.0",
+        "spatie/laravel-medialibrary": "^11.17"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -30,13 +31,13 @@
     },
     "autoload": {
         "psr-4": {
-            "LaravelSupportCenter\\LaravelSupportCenter\\": "src/",
-            "LaravelSupportCenter\\LaravelSupportCenter\\Database\\Factories\\": "database/factories/"
+            "LaravelSupportCenter\\": "src/",
+            "LaravelSupportCenter\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaravelSupportCenter\\LaravelSupportCenter\\Tests\\": "tests/",
+            "LaravelSupportCenter\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
