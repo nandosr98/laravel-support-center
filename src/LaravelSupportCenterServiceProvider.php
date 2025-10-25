@@ -12,7 +12,7 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-support-center')
             ->hasConfigFile()
-            ->hasViews()
+            ->hasViews('laravel-support-center')
             ->hasMigration('create_support_tables');
     }
 
