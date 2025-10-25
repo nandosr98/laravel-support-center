@@ -5,12 +5,8 @@ namespace LaravelSupportCenter\Http\Controllers;
 use Illuminate\Http\Request;
 use LaravelSupportCenter\Models\BaseSupportTicket;
 
-class SupportController
+class UserSupportController
 {
-    public function create()
-    {
-        return view('support-center::support.form');
-    }
 
     public function store(Request $request)
     {
@@ -25,14 +21,9 @@ class SupportController
         $ticket = BaseSupportTicket::create($validated);
 
         foreach ($request->file('attachments', []) as $file) {
-            $ticket->addMedia($file)->toMediaCollection('attachments');
+            $ticket->addMedia($file)->toMediaCollection(config('support.media_collection'));
         }
 
         return redirect()->back()->with('success', 'Tu solicitud ha sido enviada correctamente.');
-    }
-
-    public function support()
-    {
-        return view('laravel-support-center::support.user-page');
     }
 }
