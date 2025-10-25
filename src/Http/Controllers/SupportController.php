@@ -33,6 +33,6 @@ class SupportController
 
     public function support()
     {
-        return view('laravel-support-center::support.index');
+        return view('laravel-support-center::support.user-page');
     }
 }
