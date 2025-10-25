@@ -13,7 +13,11 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
             ->name('laravel-support-center')
             ->hasConfigFile()
             ->hasViews()
-            ->hasRoutes('web')
             ->hasMigration('create_support_tables');
+    }
+
+    public function boot()
+    {
+        $this->loadRoutesFrom(__DIR__.'/routes/web.php');
     }
 }
