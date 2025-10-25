@@ -24,11 +24,15 @@ class SupportController
 
         $ticket = SupportTicket::create($validated);
 
-        // Subida de adjuntos con Spatie Media Library
         foreach ($request->file('attachments', []) as $file) {
             $ticket->addMedia($file)->toMediaCollection('attachments');
         }
 
         return redirect()->back()->with('success', 'Tu solicitud ha sido enviada correctamente.');
+    }
+
+    public function support()
+    {
+        return view('support-center::support.index');
     }
 }
