@@ -27,9 +27,9 @@ class Index extends Component
 
     public function render()
     {
-        return view(config('support.user-page-livewire-view'), [
+        return view(config('support-center.user-page-livewire-view'), [
             'parameters' => 'Parameter'
-        ]);
+        ])->layout(config('support-center.user-page-layout'));
     }
 
     public function submit()
