@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelSupportCenter\LaravelSupportCenter\Database\Factories;
+namespace LaravelSupportCenter\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

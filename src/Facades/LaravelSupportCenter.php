@@ -1,16 +1,16 @@
 <?php
 
-namespace LaravelSupportCenter\LaravelSupportCenter\Facades;
+namespace LaravelSupportCenter\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \LaravelSupportCenter\LaravelSupportCenter\LaravelSupportCenter
+ * @see \LaravelSupportCenter\LaravelSupportCenter
  */
 class LaravelSupportCenter extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \LaravelSupportCenter\LaravelSupportCenter\LaravelSupportCenter::class;
+        return \LaravelSupportCenter\LaravelSupportCenter::class;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace LaravelSupportCenter\LaravelSupportCenter\Tests;
+namespace LaravelSupportCenter\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use LaravelSupportCenter\LaravelSupportCenter\LaravelSupportCenterServiceProvider;
+use LaravelSupportCenter\LaravelSupportCenterServiceProvider;
 
 class TestCase extends Orchestra
 {

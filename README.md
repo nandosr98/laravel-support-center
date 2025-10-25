@@ -52,7 +52,7 @@ php artisan vendor:publish --tag="laravel-support-center-views"
 ## Usage
 
 ```php
-$laravelSupportCenter = new LaravelSupportCenter\LaravelSupportCenter();
+$laravelSupportCenter = new LaravelSupportCenter();
 echo $laravelSupportCenter->echoPhrase('Hello, LaravelSupportCenter!');
 ```
 
