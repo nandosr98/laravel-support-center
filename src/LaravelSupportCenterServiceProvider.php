@@ -20,6 +20,10 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
     {
         parent::boot();
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->publishes([
+            __DIR__ . '/Http/Controllers/SupportController.php' =>
+                app_path('Http/Controllers/Vendor/SupportController.php'),
+        ], 'support-center-user-controller');
 
     }
 }
