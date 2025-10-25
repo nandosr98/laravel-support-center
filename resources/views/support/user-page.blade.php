@@ -12,7 +12,7 @@
     <form action="{{ route('support.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
         @csrf
 
-        <x-input label="Nombre" name="name" value="{{ old('name', auth()->user()->name ?? '') }}" />
+        <input name="name" value="{{ old('name', auth()->user()->name ?? '') }}" />
         {{-- ... resto del formulario ... --}}
 
         <div class="flex justify-end">
