@@ -7,7 +7,7 @@
         </div>
     @endif
 
-    <form wire:submit.prevent="submit" class="space-y-5">
+    <form wire:submit.prevent="submit" enctype="multipart/form-data" class="space-y-5">
         <div>
             <label class="block text-sm font-medium text-gray-700">Nombre</label>
             <input type="text" wire:model.defer="name"

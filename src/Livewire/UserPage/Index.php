@@ -50,7 +50,6 @@ class Index extends Component
                 ->toMediaCollection('attachments');
         }
 
-
         $this->reset(['subject', 'message', 'attachments']);
         session()->flash('success', 'Tu solicitud ha sido enviada correctamente.');
     }
