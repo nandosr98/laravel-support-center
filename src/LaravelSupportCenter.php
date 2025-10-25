@@ -1,5 +1,5 @@
 <?php
 
-namespace LaravelSupportCenter\LaravelSupportCenter;
+namespace LaravelSupportCenter;
 
 class LaravelSupportCenter {}

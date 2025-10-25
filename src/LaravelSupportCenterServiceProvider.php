@@ -4,7 +4,6 @@ namespace LaravelSupportCenter;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use LaravelSupportCenter\LaravelSupportCenter\Commands\LaravelSupportCenterCommand;
 
 class LaravelSupportCenterServiceProvider extends PackageServiceProvider
 {
