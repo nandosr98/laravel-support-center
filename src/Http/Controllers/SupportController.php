@@ -3,7 +3,7 @@
 namespace LaravelSupportCenter\Http\Controllers;
 
 use Illuminate\Http\Request;
-use LaravelSupportCenter\Models\SupportTicket;
+use LaravelSupportCenter\Models\BaseSupportTicket;
 
 class SupportController
 {
@@ -22,7 +22,7 @@ class SupportController
             'attachments.*' => 'file|max:2048',
         ]);
 
-        $ticket = SupportTicket::create($validated);
+        $ticket = BaseSupportTicket::create($validated);
 
         foreach ($request->file('attachments', []) as $file) {
             $ticket->addMedia($file)->toMediaCollection('attachments');

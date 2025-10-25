@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Relations\{
     BelongsToMany
 };
 use Illuminate\Support\Str;
+use LaravelSupportCenter\Traits\MergeModelProperties;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class SupportTicket extends Model
+class BaseSupportTicket extends Model
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, MergeModelProperties;
 
     protected $table = 'support_tickets';
 
@@ -56,17 +57,17 @@ class SupportTicket extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(SupportCategory::class);
+        return $this->belongsTo(BaseSupportCategory::class);
     }
 
     public function messages(): HasMany
     {
-        return $this->hasMany(SupportMessage::class, 'ticket_id');
+        return $this->hasMany(BaseSupportMessage::class, 'ticket_id');
     }
 
     public function logs(): HasMany
     {
-        return $this->hasMany(SupportStatusLog::class, 'ticket_id');
+        return $this->hasMany(BaseSupportStatusLog::class, 'ticket_id');
     }
 
     public function registerMediaCollections(): void
@@ -76,6 +77,6 @@ class SupportTicket extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(SupportTag::class, 'support_ticket_tag', 'ticket_id', 'tag_id');
+        return $this->belongsToMany(BaseSupportTag::class, 'support_ticket_tag', 'ticket_id', 'tag_id');
     }
 }

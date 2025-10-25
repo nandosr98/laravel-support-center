@@ -4,16 +4,12 @@ namespace LaravelSupportCenter\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\{
-    BelongsTo,
-    HasMany,
-    BelongsToMany
-};
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use LaravelSupportCenter\Traits\MergeModelProperties;
 
-class SupportMessage extends Model
+class BaseSupportMessage extends Model
 {
-    use HasFactory;
+    use HasFactory, MergeModelProperties;
 
     protected $table = 'support_messages';
 
@@ -32,7 +28,7 @@ class SupportMessage extends Model
 
     public function ticket(): BelongsTo
     {
-        return $this->belongsTo(SupportTicket::class);
+        return $this->belongsTo(BaseSupportTicket::class);
     }
 
     public function user(): BelongsTo

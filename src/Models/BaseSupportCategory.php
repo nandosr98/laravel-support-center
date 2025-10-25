@@ -5,10 +5,11 @@ namespace LaravelSupportCenter\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use LaravelSupportCenter\Traits\MergeModelProperties;
 
-class SupportCategory extends Model
+class BaseSupportCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, MergeModelProperties;
 
     protected $table = 'support_categories';
 
@@ -16,6 +17,6 @@ class SupportCategory extends Model
 
     public function tickets(): HasMany
     {
-        return $this->hasMany(SupportTicket::class, 'category_id');
+        return $this->hasMany(BaseSupportTicket::class, 'category_id');
     }
 }

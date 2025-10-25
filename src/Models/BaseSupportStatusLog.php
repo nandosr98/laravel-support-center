@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
-    BelongsToMany
 };
-use Illuminate\Support\Str;
+use LaravelSupportCenter\Traits\MergeModelProperties;
 
-class SupportStatusLog extends Model
+class BaseSupportStatusLog extends Model
 {
-    use HasFactory;
+    use HasFactory, MergeModelProperties;
 
     protected $table = 'support_status_logs';
 
@@ -27,7 +26,7 @@ class SupportStatusLog extends Model
 
     public function tickets(): HasMany
     {
-        return $this->hasMany(SupportTicket::class, 'category_id');
+        return $this->hasMany(BaseSupportTicket::class, 'category_id');
     }
 
     public function user(): BelongsTo
