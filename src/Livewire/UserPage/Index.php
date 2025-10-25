@@ -29,7 +29,7 @@ class Index extends Component
     {
         return view(config('support.user-page-livewire-view'), [
             'parameters' => 'Parameter'
-        ])->layout(config('support.user-page-layout'));
+        ]);
     }
 
     public function submit()
