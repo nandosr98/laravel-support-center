@@ -34,7 +34,13 @@ class Index extends Component
 
     public function submit()
     {
-        $this->validate();
+        $this->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+            'attachments.*' => 'file|max:2048',
+        ]);
 
         $ticket = BaseSupportTicket::create([
             'name' => $this->name,
