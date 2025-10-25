@@ -19,6 +19,7 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
     public function boot()
     {
         parent::boot();
-        $this->loadRoutesFrom('routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+
     }
 }
