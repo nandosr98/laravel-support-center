@@ -8,6 +8,7 @@
     @endif
 
     <form wire:submit.prevent="submit" enctype="multipart/form-data" class="space-y-5">
+        @csrf
         <div>
             <label class="block text-sm font-medium text-gray-700">Nombre</label>
             <input type="text" wire:model.defer="name"
