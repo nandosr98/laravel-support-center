@@ -59,10 +59,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelSupportCenter\\LaravelSupportCenter\\LaravelSupportCenterServiceProvider"
+                "LaravelSupportCenter\\LaravelSupportCenterServiceProvider"
             ],
             "aliases": {
-                "LaravelSupportCenter": "LaravelSupportCenter\\LaravelSupportCenter\\Facades\\LaravelSupportCenter"
+                "LaravelSupportCenter": "LaravelSupportCenter\\Facades\\LaravelSupportCenter"
             }
         }
     },
