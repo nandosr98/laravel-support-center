@@ -2,6 +2,8 @@
 
 namespace LaravelSupportCenter;
 
+use LaravelSupportCenter\Livewire\UserPage\Index;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -24,6 +26,7 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
             __DIR__ . '/Http/Controllers/SupportController.php' =>
                 app_path('Http/Controllers/Vendor/SupportController.php'),
         ], 'support-center-user-controller');
+        Livewire::component('laravel-support-center.livewire.user-page', Index::class);
 
     }
 }
