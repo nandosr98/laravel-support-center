@@ -32,9 +32,9 @@
 
         <div>
             <label class="block text-sm font-medium text-gray-700">Mensaje</label>
-            <textarea wire:model.defer="message" rows="5"
+            <textarea wire:model.defer="description" rows="5"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-            @error('message') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
+            @error('description') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div>

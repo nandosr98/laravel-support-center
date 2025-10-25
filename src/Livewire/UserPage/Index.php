@@ -14,39 +14,32 @@ class Index extends Component
     public $name;
     public $email;
     public $subject;
-    public $message;
+    public $description;
     public $attachments = [];
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email',
         'subject' => 'required|string|max:255',
-        'message' => 'required|string',
+        'description' => 'required|string',
         'attachments.*' => 'file|max:2048',
     ];
 
     public function render()
     {
-        return view(config('support-center.user-page-livewire-view'), [
-            'parameters' => 'Parameter'
-        ])->layout(config('support-center.user-page-layout'));
+        return view(config('support-center.user-page-livewire-view'), [])
+            ->layout(config('support-center.user-page-layout'));
     }
 
     public function submit()
     {
-        $this->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string',
-            'attachments.*' => 'file|max:2048',
-        ]);
+        $this->validate($this->rules);
 
         $ticket = BaseSupportTicket::create([
             'name' => $this->name,
             'email' => $this->email,
             'subject' => $this->subject,
-            'message' => $this->message,
+            'description' => $this->description,
         ]);
 
 
@@ -56,7 +49,7 @@ class Index extends Component
                 ->toMediaCollection('attachments');
         }
 
-        $this->reset(['subject', 'message', 'attachments']);
+        $this->reset(['subject', 'description', 'attachments']);
         session()->flash('success', 'Tu solicitud ha sido enviada correctamente.');
     }
 }
