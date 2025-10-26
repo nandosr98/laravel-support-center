@@ -7,7 +7,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 
-class Index extends Component
+class BaseSupportUserPage extends Component
 {
     use WithFileUploads;
 
