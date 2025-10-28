@@ -46,7 +46,7 @@ class BaseSupportUserPage extends Component
         foreach ($this->attachments as $file) {
             $ticket->addMedia($file->getRealPath())
                 ->usingFileName($file->getClientOriginalName())
-                ->toMediaCollection('attachments');
+                ->toMediaCollection(config('support-center.media_collection'));
         }
 
         $this->reset(['subject', 'description', 'attachments']);

@@ -22,6 +22,7 @@ class BaseSupportTicket extends Model
     protected $fillable = [
         'uuid',
         'user_id',
+        'email',
         'assigned_to',
         'subject',
         'description',
@@ -47,7 +48,7 @@ class BaseSupportTicket extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(config('support.models.user'));
+        return $this->belongsTo(config('support-center.models.user'));
     }
 
     public function agent(): BelongsTo

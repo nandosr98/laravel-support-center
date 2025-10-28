@@ -14,7 +14,7 @@ class BaseSupportAdminPage extends Component
 
     public function render()
     {
-        $tickets = BaseSupportTicket::query()
+        $tickets = BaseSupportTicket::query()->with('user')
             ->latest('created_at')
             ->paginate(config('support-center.admin-page-pagination', 15));
 

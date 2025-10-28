@@ -30,6 +30,8 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
+            $table->string('email')->nullable();
+
             $table->foreignId('assigned_to')
                 ->nullable()
                 ->constrained('users')
