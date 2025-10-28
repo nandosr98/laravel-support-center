@@ -17,6 +17,9 @@
                             Asunto
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Categoría
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Estado
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -31,11 +34,18 @@
                     @forelse($tickets as $ticket)
                         <tr wire:key="ticket-{{ $ticket->id }}">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $ticket->uuid }}
+                                @if($ticket->user)
+                                    {{ $ticket->user->name ?? 'No proporcionado' }}
+                                @else
+                                    {{ $ticket->email }}
+                                @endif
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                                 <div class="font-medium text-gray-900">{{ $ticket->subject }}</div>
                                 <div class="text-xs text-gray-500">{{ $ticket->channel ?? 'N/A' }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                                <div class="font-medium text-gray-900">{{ $ticket->category->name ?? 'No categorizado' }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <span class="inline-flex px-2 text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
