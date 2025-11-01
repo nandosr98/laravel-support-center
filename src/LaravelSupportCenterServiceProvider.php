@@ -17,24 +17,27 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
             ->name('laravel-support-center')
             ->hasConfigFile()
             ->hasViews('laravel-support-center')
-            ->hasMigration('create_support_tables')
-            ->hasRoute('web'); // 👈 carga automática de routes/web.php
+            ->hasMigration('create_support_tables');
     }
 
-    public function packageBooted(): void
+    public function boot(): void
     {
-        $this->registerLivewireComponents();
-        $this->registerBladeComponents();
+        parent::boot();
 
         $this->publishes([
             __DIR__ . '/Http/Controllers/SupportController.php' =>
                 app_path('Http/Controllers/Vendor/SupportController.php'),
         ], 'support-center-user-controller');
+
+        $this->registerLivewireComponents();
+        $this->registerBladeComponents();
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     private function registerBladeComponents(): void
     {
         Blade::componentNamespace('LaravelSupportCenter\\View\\Components', 'support');
+
     }
 
     private function registerLivewireComponents(): void
