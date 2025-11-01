@@ -16,7 +16,7 @@ class Index extends Component
     {
         $tags = BaseSupportTag::query()->latest('created_at')->paginate(15);
 
-        return view(config('support-center.admin-page-tag-livewire-view'), [
+        return view('laravel-support-center::livewire.tags.index', [
             'tags' => $tags,
         ])->layout(config('support-center.admin-page-layout'));
     }

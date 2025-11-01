@@ -14,7 +14,7 @@ class Index extends Component
     {
         $categories = BaseSupportCategory::query()->latest('created_at')->paginate(15);
 
-        return view(config('support-center.admin-page-livewire-view'), [
+        return view('laravel-support-center::livewire.categories.index', [
             'categories' => $categories,
         ])->layout(config('support-center.admin-page-layout'));
     }

@@ -17,7 +17,7 @@ class Index extends Component
             ->latest('created_at')
             ->paginate(15);
 
-        return view(config('support-center.admin-page-livewire-view'), [
+        return view('laravel-support-center::livewire.agents.index', [
             'agents' => $agents,
         ])->layout(config('support-center.admin-page-layout'));
     }
