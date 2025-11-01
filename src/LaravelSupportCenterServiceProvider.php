@@ -23,15 +23,15 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
     public function boot(): void
     {
         parent::boot();
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+
         $this->publishes([
             __DIR__ . '/Http/Controllers/SupportController.php' =>
                 app_path('Http/Controllers/Vendor/SupportController.php'),
         ], 'support-center-user-controller');
-
-
+        
         $this->registerLivewireComponents();
         $this->registerBladeComponents();
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     private function registerBladeComponents(): void
