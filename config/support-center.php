@@ -10,7 +10,6 @@ return [
     'user-page-livewire-view' => 'laravel-support-center::livewire.user-page',
     'user-page-layout' => 'layouts.app',
 
-    'admin-route-name' => '/admin/support',
     'admin-page-livewire-view' => 'laravel-support-center::livewire.admin-page',
     'admin-page-layout' => 'layouts.admin',
     'admin-page-pagination' => 15,
