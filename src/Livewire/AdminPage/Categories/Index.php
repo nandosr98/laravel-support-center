@@ -10,7 +10,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    public bool $showCreateModal = false;
+    public bool $categoryModal = false;
 
     public ?string $flashMessage = null;
 
@@ -18,31 +18,15 @@ class Index extends Component
         'category-created' => 'handleCategoryCreated',
     ];
 
-    public function openCreateModal(): void
-    {
-        $this->showCreateModal = true;
-    }
-
-    public function closeCreateModal(): void
-    {
-        $this->showCreateModal = false;
-    }
-
     public function handleCategoryCreated(?string $message = null): void
     {
         $this->flashMessage = $message ?? 'Categoría creada correctamente.';
         $this->resetPage();
-        $this->closeCreateModal();
-    }
-
-    public function dismissFlashMessage(): void
-    {
-        $this->flashMessage = null;
     }
 
     public function render()
     {
-        $perPage = config('support-center.admin-page-pagination', 15);
+        $perPage = 15;
 
         $categories = BaseSupportCategory::query()
             ->withCount('tickets')
