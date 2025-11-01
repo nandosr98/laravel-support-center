@@ -8,7 +8,7 @@ Route::middleware(['web'])
 
     });
 
-Route::middleware(['auth','admin'])->prefix('/admin/support')->group(function () {
+Route::middleware(['admin'])->prefix('/admin/support')->group(function () {
     Route::get('/', \LaravelSupportCenter\Livewire\AdminPage\BaseSupportAdminPage::class)->name('support.admin-page');
 
     Route::prefix('tickets')->group(function () {
