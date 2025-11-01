@@ -13,8 +13,6 @@ class Create extends Component
 
     public string $priority = 'medium';
 
-    public ?string $successMessage = null;
-
     protected array $rules = [
         'name' => ['required', 'string', 'max:190'],
         'description' => ['nullable', 'string'],
@@ -30,9 +28,8 @@ class Create extends Component
         $this->resetValidation();
         $this->reset(['name', 'description', 'priority']);
         $this->priority = 'medium';
-        $this->successMessage = 'Categoría creada correctamente.';
 
-        $this->dispatch('category-created');
+        $this->dispatch('category-created', message: 'Categoría creada correctamente.');
     }
 
     public function render()

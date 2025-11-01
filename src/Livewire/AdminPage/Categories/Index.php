@@ -10,9 +10,35 @@ class Index extends Component
 {
     use WithPagination;
 
+    public bool $showCreateModal = false;
+
+    public ?string $flashMessage = null;
+
     protected $listeners = [
-        'category-created' => '$refresh',
+        'category-created' => 'handleCategoryCreated',
     ];
+
+    public function openCreateModal(): void
+    {
+        $this->showCreateModal = true;
+    }
+
+    public function closeCreateModal(): void
+    {
+        $this->showCreateModal = false;
+    }
+
+    public function handleCategoryCreated(?string $message = null): void
+    {
+        $this->flashMessage = $message ?? 'Categoría creada correctamente.';
+        $this->resetPage();
+        $this->closeCreateModal();
+    }
+
+    public function dismissFlashMessage(): void
+    {
+        $this->flashMessage = null;
+    }
 
     public function render()
     {
