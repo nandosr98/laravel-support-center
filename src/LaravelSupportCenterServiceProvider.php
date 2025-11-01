@@ -4,6 +4,10 @@ namespace LaravelSupportCenter;
 
 use Illuminate\Support\Facades\Blade;
 use LaravelSupportCenter\Livewire\AdminPage\BaseSupportAdminPage;
+use LaravelSupportCenter\Livewire\AdminPage\Tickets\Index as TicketsIndex;
+use LaravelSupportCenter\Livewire\AdminPage\Categories\Index as CategoriesIndex;
+use LaravelSupportCenter\Livewire\AdminPage\Tags\Index as TagsIndex;
+use LaravelSupportCenter\Livewire\AdminPage\Agents\Index as AgentsIndex;
 use LaravelSupportCenter\Livewire\UserPage\BaseSupportUserPage;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
@@ -44,5 +48,9 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
     {
         Livewire::component('laravel-support-center.livewire.user-page', BaseSupportUserPage::class);
         Livewire::component('laravel-support-center.livewire.admin-page', BaseSupportAdminPage::class);
+        Livewire::component('laravel-support-center.livewire.tickets.index', TicketsIndex::class);
+        Livewire::component('laravel-support-center.livewire.categories.index', CategoriesIndex::class);
+        Livewire::component('laravel-support-center.livewire.tags.index', TagsIndex::class);
+        Livewire::component('laravel-support-center.livewire.agents.index', AgentsIndex::class);
     }
 }
