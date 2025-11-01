@@ -2,7 +2,6 @@
 
 namespace LaravelSupportCenter\Livewire\AdminPage\Categories;
 
-use LaravelSupportCenter\Models\BaseSupportAgent;
 use LaravelSupportCenter\Models\BaseSupportCategory;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,9 +9,19 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+
+    protected $listeners = [
+        'category-created' => '$refresh',
+    ];
+
     public function render()
     {
-        $categories = BaseSupportCategory::query()->latest('created_at')->paginate(15);
+        $perPage = config('support-center.admin-page-pagination', 15);
+
+        $categories = BaseSupportCategory::query()
+            ->withCount('tickets')
+            ->latest('created_at')
+            ->paginate($perPage);
 
         return view('laravel-support-center::livewire.categories.index', [
             'categories' => $categories,

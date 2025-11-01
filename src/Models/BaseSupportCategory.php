@@ -13,7 +13,7 @@ class BaseSupportCategory extends Model
 
     protected $table = 'support_categories';
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'priority'];
 
     public function tickets(): HasMany
     {
