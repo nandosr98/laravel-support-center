@@ -2,9 +2,9 @@
 
 namespace LaravelSupportCenter;
 
+use Illuminate\Support\Facades\Blade;
 use LaravelSupportCenter\Livewire\AdminPage\BaseSupportAdminPage;
 use LaravelSupportCenter\Livewire\UserPage\BaseSupportUserPage;
-use LaravelSupportCenter\Livewire\UserPage\Index;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -20,7 +20,7 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
             ->hasMigration('create_support_tables');
     }
 
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
@@ -28,8 +28,21 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
             __DIR__ . '/Http/Controllers/SupportController.php' =>
                 app_path('Http/Controllers/Vendor/SupportController.php'),
         ], 'support-center-user-controller');
+
+
+        $this->registerLivewireComponents();
+        $this->registerBladeComponents();
+    }
+
+    private function registerBladeComponents(): void
+    {
+        Blade::componentNamespace('LaravelSupportCenter\\View\\Components', 'support');
+
+    }
+
+    private function registerLivewireComponents(): void
+    {
         Livewire::component('laravel-support-center.livewire.user-page', BaseSupportUserPage::class);
         Livewire::component('laravel-support-center.livewire.admin-page', BaseSupportAdminPage::class);
-
     }
 }
