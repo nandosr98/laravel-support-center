@@ -17,6 +17,10 @@ class Index extends Component
 
     public bool $editCategoryModal = false;
 
+    public bool $confirmDeleteModal = false;
+
+    public $categoryToDelete;
+
     public array $editCategoryForm = [
         'id' => '',
         'name' => '',
@@ -87,6 +91,13 @@ class Index extends Component
     }
 
     public function deleteCategory($id): void
+    {
+        $this->categoryToDelete = $id;
+        $this->confirmDeleteModal = true;
+
+    }
+
+    public function confirmDeleteCategory($id): void
     {
         try{
             BaseSupportCategory::find($id)->delete();
