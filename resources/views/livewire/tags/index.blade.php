@@ -70,7 +70,7 @@
             required
         />
 
-        <x-mary-color-picker
+        <x-mary-colorpicker
             label="Color"
             wire:model="tagForm.color"
             required
@@ -91,7 +91,7 @@
             required
         />
 
-        <x-mary-color-picker
+        <x-mary-colorpicker
             label="Color"
             wire:model="tagForm.color"
             required
