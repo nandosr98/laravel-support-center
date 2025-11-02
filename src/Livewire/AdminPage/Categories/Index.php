@@ -59,6 +59,7 @@ class Index extends Component
         $category = BaseSupportCategory::find($id);
 
         $this->editCategoryForm = [
+            'id' => $category->id,
             'name' => $category->name,
             'description' => $category->description,
             'priority' => $category->priority,
