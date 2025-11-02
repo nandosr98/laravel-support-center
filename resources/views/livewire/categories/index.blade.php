@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Str; @endphp
 <div class="py-8" wire:keydown.escape.window="closeCreateModal">
     <div class="max-w-6xl mx-auto px-6 space-y-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -18,96 +19,52 @@
 
         <div class="bg-white shadow rounded-lg">
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                    <tr>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Categoría
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Descripción
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Prioridad
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Tickets asociados
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Creado
-                        </th>
-                        <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Actualizado
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                    @php
-                        $priorityLabels = [
-                            'low' => 'Baja',
-                            'medium' => 'Media',
-                            'high' => 'Alta',
-                            'urgent' => 'Urgente',
-                        ];
-                        $priorityClasses = [
-                            'low' => 'bg-green-100 text-green-800',
-                            'medium' => 'bg-blue-100 text-blue-800',
-                            'high' => 'bg-amber-100 text-amber-800',
-                            'urgent' => 'bg-red-100 text-red-800',
-                        ];
-                    @endphp
-                    @forelse($categories as $category)
-                        @php
-                            $priorityKey = strtolower($category->priority ?? 'medium');
-                            $priorityLabel = $priorityLabels[$priorityKey] ?? ucfirst($priorityKey);
-                            $priorityClass = $priorityClasses[$priorityKey] ?? 'bg-gray-100 text-gray-700';
-                            $ticketsCount = $category->tickets_count
-                                ?? ($category->relationLoaded('tickets') ? $category->tickets->count() : null);
-                        @endphp
-                        <tr wire:key="category-{{ $category->id }}">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                <div class="font-semibold text-gray-900">
-                                    {{ $category->name ?? 'Sin nombre' }}
-                                </div>
-                                <div class="text-xs text-gray-500">
-                                    #{{ $category->id }}
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-700">
-                                {{ $category->description
-                                    ? \Illuminate\Support\Str::limit($category->description, 90)
-                                    : 'Sin descripción' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $priorityClass }}">
-                                    {{ $priorityLabel }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                {{ $ticketsCount ?? 'N/D' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ optional($category->created_at)->format('d/m/Y H:i') ?? 'N/D' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ optional($category->updated_at)->diffForHumans() ?? 'Sin cambios' }}
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">
-                                No hay categorías registradas por el momento.
-                            </td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
+                @php
+                    $headersInfo = [
+                       ['key' => 'name', 'label' => 'Categoría', 'class' => 'w-1'],
+                       ['key' => 'description', 'label' => 'Description'],
+                       ['key' => 'priority', 'label' => 'Prioridad'],
+                       ['key' => 'tickets_count', 'label' => 'Tickets Asociados'],
+                       ['key' => 'created_at', 'label' => 'Creado'],
+                       ['key' => 'updated_at', 'label' => 'Ultima actualización'],
+                       ['key' => 'actions', 'label' => ''],
+                   ];
+                @endphp
+                <x-mary-table
+                    :headers="$headersInfo"
+                    :rows="$categories"
+                    show-empty-text
+                    empty-text="No hay categorías creadas."
+                    with-pagination
+                    per-page="5"
+                    :per-page-values="[3, 5, 10]">
+                    @scope('name', $row)
+                    <div class="font-semibold text-gray-900">
+                        {{ $row->name ?? 'Sin nombre' }}
+                    </div>
+                    <div class="text-xs text-gray-500">
+                        #{{ $row->id }}
+                    </div>
+                    @endscope
+
+                    @scope('description', $row)
+                    {{ $row->description
+                        ? Str::limit($row->description, 90)
+                        : 'Sin descripción' }}
+                    @endscope
+
+                    @scope('tickets_count', $row)
+                        {{$row->tickets_count ?? ($row->relationLoaded('tickets') ? $row->tickets->count() : null) }}
+                    @endscope
+
+                    @scope('actions', $row)
+                        <div class="flex justify-end gap-2">
+                            <x-mary-button icon="o-arrow-down-circle" wire:click="downloadCategory({{ $row->id }})" class="btn-sm" />
+                            <x-mary-button icon="o-pencil" wire:click="editCategory({{ $row->id }})" class="btn-sm" />
+                            <x-mary-button icon="o-trash" wire:click="deleteCategory({{ $row->id }})" class="btn-sm" />
+                        </div>
+                    @endscope
+                </x-mary-table>
             </div>
 
             <div class="px-6 py-4 border-t border-gray-200">
@@ -116,7 +73,7 @@
         </div>
     </div>
 
-    <x-mary-modal  wire:model="categoryModal" title="Añadir nueva categoría">
+    <x-mary-modal wire:model="categoryModal" title="Añadir nueva categoría">
         <x-slot name="title">Nueva Categoría</x-slot>
         <x-mary-input
             label="Nombre"
@@ -142,8 +99,131 @@
         />
 
         <x-slot:actions>
-            <x-mary-button label="Crear Categoría" class="btn-primary" wire:click="createCategory" />
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.categoryModal = false" />
+            <x-mary-button label="Crear Categoría" class="btn-primary" wire:click="createCategory"/>
+            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.categoryModal = false"/>
+        </x-slot:actions>
+    </x-mary-modal>
+
+    <x-mary-modal wire:model="editCategoryModal" title="Editar categoría">
+        <x-slot name="title">Editar Categoría</x-slot>
+        <x-mary-input
+            label="Nombre"
+            wire:model="editCategoryForm.name"
+            placeholder="Nombre de la categoría"
+            required
+        />
+
+        <x-mary-textarea
+            label="Descripción"
+            rows="6"
+            wire:model="editCategoryForm.description"
+            placeholder="Descripción de la categoría"
+        />
+
+        <x-mary-select
+            label="Prioridad"
+            wire:model="editCategoryForm.priority"
+            :options="$categoryPriorities"
+            option-label="label"
+            option-value="key"
+            selected="{{ $editCategoryForm['priority'] }}"
+            placeholder="Selecciona una prioridad"
+        />
+
+        <x-slot:actions>
+            <x-mary-button label="Editar Categoría" class="btn-primary" wire:click="editCategory"/>
+            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.editCategoryModal = false"/>
         </x-slot:actions>
     </x-mary-modal>
 </div>
+
+{{--<table class="min-w-full divide-y divide-gray-200">--}}
+{{--    <thead class="bg-gray-50">--}}
+{{--    <tr>--}}
+{{--        <th scope="col"--}}
+{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
+{{--            Categoría--}}
+{{--        </th>--}}
+{{--        <th scope="col"--}}
+{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
+{{--            Descripción--}}
+{{--        </th>--}}
+{{--        <th scope="col"--}}
+{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
+{{--            Prioridad--}}
+{{--        </th>--}}
+{{--        <th scope="col"--}}
+{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
+{{--            Tickets asociados--}}
+{{--        </th>--}}
+{{--        <th scope="col"--}}
+{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
+{{--            Creado--}}
+{{--        </th>--}}
+{{--        <th scope="col"--}}
+{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
+{{--            Actualizado--}}
+{{--        </th>--}}
+{{--    </tr>--}}
+{{--    </thead>--}}
+{{--    <tbody class="bg-white divide-y divide-gray-200">--}}
+{{--    @php--}}
+{{--        $priorityLabels = [--}}
+{{--            'low' => 'Baja',--}}
+{{--            'medium' => 'Media',--}}
+{{--            'high' => 'Alta',--}}
+{{--            'urgent' => 'Urgente',--}}
+{{--        ];--}}
+{{--        $priorityClasses = [--}}
+{{--            'low' => 'bg-green-100 text-green-800',--}}
+{{--            'medium' => 'bg-blue-100 text-blue-800',--}}
+{{--            'high' => 'bg-amber-100 text-amber-800',--}}
+{{--            'urgent' => 'bg-red-100 text-red-800',--}}
+{{--        ];--}}
+{{--    @endphp--}}
+{{--    @forelse($categories as $category)--}}
+{{--        @php--}}
+{{--            $priorityKey = strtolower($category->priority ?? 'medium');--}}
+{{--            $priorityLabel = $priorityLabels[$priorityKey] ?? ucfirst($priorityKey);--}}
+{{--            $priorityClass = $priorityClasses[$priorityKey] ?? 'bg-gray-100 text-gray-700';--}}
+{{--            $ticketsCount = $category->tickets_count--}}
+{{--                ?? ($category->relationLoaded('tickets') ? $category->tickets->count() : null);--}}
+{{--        @endphp--}}
+{{--        <tr wire:key="category-{{ $category->id }}">--}}
+{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">--}}
+{{--                <div class="font-semibold text-gray-900">--}}
+{{--                    {{ $category->name ?? 'Sin nombre' }}--}}
+{{--                </div>--}}
+{{--                <div class="text-xs text-gray-500">--}}
+{{--                    #{{ $category->id }}--}}
+{{--                </div>--}}
+{{--            </td>--}}
+{{--            <td class="px-6 py-4 text-sm text-gray-700">--}}
+{{--                {{ $category->description--}}
+{{--                    ? \Illuminate\Support\Str::limit($category->description, 90)--}}
+{{--                    : 'Sin descripción' }}--}}
+{{--            </td>--}}
+{{--            <td class="px-6 py-4 whitespace-nowrap text-sm">--}}
+{{--                                <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $priorityClass }}">--}}
+{{--                                    {{ $priorityLabel }}--}}
+{{--                                </span>--}}
+{{--            </td>--}}
+{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">--}}
+{{--                {{ $ticketsCount ?? 'N/D' }}--}}
+{{--            </td>--}}
+{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--}}
+{{--                {{ optional($category->created_at)->format('d/m/Y H:i') ?? 'N/D' }}--}}
+{{--            </td>--}}
+{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--}}
+{{--                {{ optional($category->updated_at)->diffForHumans() ?? 'Sin cambios' }}--}}
+{{--            </td>--}}
+{{--        </tr>--}}
+{{--    @empty--}}
+{{--        <tr>--}}
+{{--            <td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">--}}
+{{--                No hay categorías registradas por el momento.--}}
+{{--            </td>--}}
+{{--        </tr>--}}
+{{--    @endforelse--}}
+{{--    </tbody>--}}
+{{--</table>--}}
