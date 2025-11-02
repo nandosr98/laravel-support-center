@@ -131,7 +131,7 @@
 
         <x-slot:actions>
             <x-mary-button label="Editar Categoría" class="btn-primary" wire:click="editCategory({{$editCategoryForm['id']}})"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.editCategoryModal = false"/>
+            <x-mary-button label="Cancelar" class="btn-success" wire:click="$set('editCategoryModal',false)"/>
         </x-slot:actions>
     </x-mary-modal>
 
