@@ -94,7 +94,7 @@
 
         <x-mary-colorpicker
             label="Color"
-            wire:model="tagForm.color"
+            wire:model="editTagForm.color"
             required
         />
 
