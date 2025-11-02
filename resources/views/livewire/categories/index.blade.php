@@ -139,7 +139,7 @@
         <x-slot name="title">¿Estas seguro de eliminar esta categoría?</x-slot>
         <x-slot:actions>
             <x-mary-button label="Eliminar Categoría" class="btn-danger" wire:click="confirmDeleteCategory({{$categoryToDelete}})"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$dispatch('close')"/>
+            <x-mary-button label="Cancelar" class="btn-success" wire:click="$set('confirmDeleteModal',false)"/>
         </x-slot:actions>
     </x-mary-modal>
 </div>
