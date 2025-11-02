@@ -111,6 +111,7 @@ class Index extends Component
             return;
         }
 
+        $this->confirmDeleteModal = true;
         toast()->success('Categoría eliminada')->push();
     }
 
