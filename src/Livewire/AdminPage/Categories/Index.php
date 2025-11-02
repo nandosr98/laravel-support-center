@@ -71,6 +71,7 @@ class Index extends Component
         try{
             BaseSupportCategory::find($this->editCategoryForm['id'])->update($this->editCategoryForm);
         } catch (Exception $e) {
+            dd($e);
             Log::error('[LaravelSupportCenter::EditCategory] Could not edit category', [
                 'category' => $this->editCategoryForm,
                 'message' => $e->getMessage(),
