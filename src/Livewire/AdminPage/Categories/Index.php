@@ -54,6 +54,19 @@ class Index extends Component
         toast()->success('Categoría creada')->push();
     }
 
+    public function showEditCategory($id)
+    {
+        $category = BaseSupportCategory::find($id);
+
+        $this->editCategoryForm = [
+            'name' => $category->name,
+            'description' => $category->description,
+            'priority' => $category->priority,
+        ];
+        $this->editCategoryModal = true;
+    }
+
+
     public function render()
     {
         $perPage = 15;

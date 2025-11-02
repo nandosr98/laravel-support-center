@@ -59,8 +59,7 @@
 
                     @scope('actions', $row)
                         <div class="flex justify-end gap-2">
-                            <x-mary-button icon="o-arrow-down-circle" wire:click="downloadCategory({{ $row->id }})" class="btn-sm" />
-                            <x-mary-button icon="o-pencil" wire:click="editCategory({{ $row->id }})" class="btn-sm" />
+                            <x-mary-button icon="o-pencil" wire:click="showEditCategory({{ $row->id }})" class="btn-sm" />
                             <x-mary-button icon="o-trash" wire:click="deleteCategory({{ $row->id }})" class="btn-sm" />
                         </div>
                     @endscope
@@ -136,94 +135,3 @@
         </x-slot:actions>
     </x-mary-modal>
 </div>
-
-{{--<table class="min-w-full divide-y divide-gray-200">--}}
-{{--    <thead class="bg-gray-50">--}}
-{{--    <tr>--}}
-{{--        <th scope="col"--}}
-{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
-{{--            Categoría--}}
-{{--        </th>--}}
-{{--        <th scope="col"--}}
-{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
-{{--            Descripción--}}
-{{--        </th>--}}
-{{--        <th scope="col"--}}
-{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
-{{--            Prioridad--}}
-{{--        </th>--}}
-{{--        <th scope="col"--}}
-{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
-{{--            Tickets asociados--}}
-{{--        </th>--}}
-{{--        <th scope="col"--}}
-{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
-{{--            Creado--}}
-{{--        </th>--}}
-{{--        <th scope="col"--}}
-{{--            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">--}}
-{{--            Actualizado--}}
-{{--        </th>--}}
-{{--    </tr>--}}
-{{--    </thead>--}}
-{{--    <tbody class="bg-white divide-y divide-gray-200">--}}
-{{--    @php--}}
-{{--        $priorityLabels = [--}}
-{{--            'low' => 'Baja',--}}
-{{--            'medium' => 'Media',--}}
-{{--            'high' => 'Alta',--}}
-{{--            'urgent' => 'Urgente',--}}
-{{--        ];--}}
-{{--        $priorityClasses = [--}}
-{{--            'low' => 'bg-green-100 text-green-800',--}}
-{{--            'medium' => 'bg-blue-100 text-blue-800',--}}
-{{--            'high' => 'bg-amber-100 text-amber-800',--}}
-{{--            'urgent' => 'bg-red-100 text-red-800',--}}
-{{--        ];--}}
-{{--    @endphp--}}
-{{--    @forelse($categories as $category)--}}
-{{--        @php--}}
-{{--            $priorityKey = strtolower($category->priority ?? 'medium');--}}
-{{--            $priorityLabel = $priorityLabels[$priorityKey] ?? ucfirst($priorityKey);--}}
-{{--            $priorityClass = $priorityClasses[$priorityKey] ?? 'bg-gray-100 text-gray-700';--}}
-{{--            $ticketsCount = $category->tickets_count--}}
-{{--                ?? ($category->relationLoaded('tickets') ? $category->tickets->count() : null);--}}
-{{--        @endphp--}}
-{{--        <tr wire:key="category-{{ $category->id }}">--}}
-{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">--}}
-{{--                <div class="font-semibold text-gray-900">--}}
-{{--                    {{ $category->name ?? 'Sin nombre' }}--}}
-{{--                </div>--}}
-{{--                <div class="text-xs text-gray-500">--}}
-{{--                    #{{ $category->id }}--}}
-{{--                </div>--}}
-{{--            </td>--}}
-{{--            <td class="px-6 py-4 text-sm text-gray-700">--}}
-{{--                {{ $category->description--}}
-{{--                    ? \Illuminate\Support\Str::limit($category->description, 90)--}}
-{{--                    : 'Sin descripción' }}--}}
-{{--            </td>--}}
-{{--            <td class="px-6 py-4 whitespace-nowrap text-sm">--}}
-{{--                                <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $priorityClass }}">--}}
-{{--                                    {{ $priorityLabel }}--}}
-{{--                                </span>--}}
-{{--            </td>--}}
-{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">--}}
-{{--                {{ $ticketsCount ?? 'N/D' }}--}}
-{{--            </td>--}}
-{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--}}
-{{--                {{ optional($category->created_at)->format('d/m/Y H:i') ?? 'N/D' }}--}}
-{{--            </td>--}}
-{{--            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">--}}
-{{--                {{ optional($category->updated_at)->diffForHumans() ?? 'Sin cambios' }}--}}
-{{--            </td>--}}
-{{--        </tr>--}}
-{{--    @empty--}}
-{{--        <tr>--}}
-{{--            <td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">--}}
-{{--                No hay categorías registradas por el momento.--}}
-{{--            </td>--}}
-{{--        </tr>--}}
-{{--    @endforelse--}}
-{{--    </tbody>--}}
-{{--</table>--}}
