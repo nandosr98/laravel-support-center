@@ -4,8 +4,6 @@ namespace LaravelSupportCenter\Livewire\AdminPage\Tags;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
-use LaravelSupportCenter\Models\BaseSupportAgent;
-use LaravelSupportCenter\Models\BaseSupportCategory;
 use LaravelSupportCenter\Models\BaseSupportTag;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -33,7 +31,7 @@ class Index extends Component
         'color' => '',
     ];
 
-    public function createCategory(): void
+    public function createTag(): void
     {
         try{
             BaseSupportTag::create($this->tagForm);
