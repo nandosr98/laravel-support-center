@@ -17,24 +17,6 @@
         </div>
 
         <div class="bg-white shadow rounded-lg">
-            <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-gray-500">
-                        Mostrando del {{ $categories->firstItem() ?? 0 }} al {{ $categories->lastItem() ?? 0 }}.
-                    </p>
-                </div>
-                <div wire:loading class="flex items-center gap-2 text-sm text-blue-600">
-                    <svg class="animate-spin h-4 w-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 24 24" aria-hidden="true">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor"
-                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                    </svg>
-                    <span>Cargando...</span>
-                </div>
-            </div>
-
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
@@ -141,6 +123,13 @@
             wire:model="categoryForm.name"
             placeholder="Nombre de la categoría"
             required
+        />
+
+        <x-mary-textarea
+            label="Descripción"
+            rows="6"
+            wire:model="categoryForm.description"
+            placeholder="Descripción de la categoría"
         />
 
         <x-mary-select
