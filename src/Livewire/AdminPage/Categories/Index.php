@@ -18,6 +18,7 @@ class Index extends Component
     public bool $editCategoryModal = false;
 
     public array $editCategoryForm = [
+        'id' => '',
         'name' => '',
         'description' => '',
         'priority' => '',
