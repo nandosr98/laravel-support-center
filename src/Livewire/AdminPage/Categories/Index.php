@@ -66,6 +66,24 @@ class Index extends Component
         $this->editCategoryModal = true;
     }
 
+    public function editCategory()
+    {
+        try{
+            BaseSupportCategory::find($this->editCategoryForm['id'])->update($this->editCategoryForm);
+        } catch (Exception $e) {
+            Log::error('[LaravelSupportCenter::EditCategory] Could not edit category', [
+                'category' => $this->editCategoryForm,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace(),
+            ]);
+            toast()->danger('Error al editar la categoría')->push();
+            return;
+        }
+
+        $this->editCategoryModal = false;
+        toast()->success('Categoría editada')->push();
+    }
+
 
     public function render()
     {
