@@ -11,6 +11,7 @@
                 <span class="font-medium text-gray-900">{{ $tags->total() }}</span>
                 <span>etiqueta{{ $tags->total() === 1 ? '' : 's' }} cread{{ $tags->total() === 1 ? 'a' : 'as' }}</span>
             </div>
+            <x-mary-button icon="o-plus" class="btn-soft btn-sm" @click="$wire.tagModal = true"/>
         </div>
 
         <div class="bg-white shadow rounded-lg">
