@@ -37,7 +37,7 @@ class Index extends Component
         'priority' => 'medium',
     ];
 
-    public function createCategory()
+    public function createCategory(): void
     {
         try{
             BaseSupportCategory::create($this->categoryForm);
@@ -55,7 +55,7 @@ class Index extends Component
         toast()->success('Categoría creada')->push();
     }
 
-    public function showEditCategory($id)
+    public function showEditCategory($id): void
     {
         $category = BaseSupportCategory::find($id);
 
@@ -68,12 +68,11 @@ class Index extends Component
         $this->editCategoryModal = true;
     }
 
-    public function editCategory()
+    public function editCategory(): void
     {
         try{
             BaseSupportCategory::find($this->editCategoryForm['id'])->update($this->editCategoryForm);
         } catch (Exception $e) {
-            dd($e);
             Log::error('[LaravelSupportCenter::EditCategory] Could not edit category', [
                 'category' => $this->editCategoryForm,
                 'message' => $e->getMessage(),
@@ -85,6 +84,23 @@ class Index extends Component
 
         $this->editCategoryModal = false;
         toast()->success('Categoría editada')->push();
+    }
+
+    public function deleteCategory($id): void
+    {
+        try{
+            BaseSupportCategory::find($id)->delete();
+        } catch (Exception $e) {
+            Log::error('[LaravelSupportCenter::DeleteCategory] Could not delete category', [
+                'category' => $id,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace(),
+            ]);
+            toast()->danger('Error al eliminar la categoría')->push();
+            return;
+        }
+
+        toast()->success('Categoría eliminada')->push();
     }
 
 
