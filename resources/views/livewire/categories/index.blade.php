@@ -135,11 +135,26 @@
     </div>
 
     <x-mary-modal  wire:model="categoryModal" title="Añadir nueva categoría">
-        <x-slot name="title">Descarga</x-slot>
-        <x-slot name="actions">
-            <button @click="$wire.categoryModal = false" class="bg-[#FFD100] hover:bg-[#004B87] hover:text-white font-semibold px-4 py-2 rounded">
-                Cerrar
-            </button>
-        </x-slot>
+        <x-slot name="title">Nueva Categoría</x-slot>
+        <x-mary-input
+            label="Nombre"
+            wire:model="categoryForm.name"
+            placeholder="Nombre de la categoría"
+            required
+        />
+
+        <x-mary-select
+            label="Prioridad"
+            wire:model="categoryForm.priority"
+            :options="$categoryPriorities"
+            option-label="label"
+            option-value="key"
+            placeholder="Selecciona una prioridad"
+        />
+
+        <x-slot:actions>
+            <x-mary-button label="Crear Categoría" class="btn-primary" wire:click="createCategory" />
+            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.categoryModal = false" />
+        </x-slot:actions>
     </x-mary-modal>
 </div>

@@ -2,26 +2,48 @@
 
 namespace LaravelSupportCenter\Livewire\AdminPage\Categories;
 
+use Exception;
+use Illuminate\Support\Facades\Log;
 use LaravelSupportCenter\Models\BaseSupportCategory;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Usernotnull\Toast\Concerns\WireToast;
 
 class Index extends Component
 {
-    use WithPagination;
+    use WireToast, WithPagination;
 
     public bool $categoryModal = false;
 
-    public ?string $flashMessage = null;
-
-    protected $listeners = [
-        'category-created' => 'handleCategoryCreated',
+    public array $categoryPriorities = [
+        ['key' => 'low', 'label' => 'Baja'],
+        ['key' => 'medium', 'label' => 'Media'],
+        ['key' => 'high', 'label' => 'Alta'],
+        ['key' => 'urgent', 'label' => 'Urgente'],
     ];
 
-    public function handleCategoryCreated(?string $message = null): void
+    public array $categoryForm = [
+        'name' => '',
+        'description' => '',
+        'priority' => 'medium',
+    ];
+
+    public function createCategory()
     {
-        $this->flashMessage = $message ?? 'Categoría creada correctamente.';
-        $this->resetPage();
+        try{
+            BaseSupportCategory::create($this->categoryForm);
+        } catch (Exception $e) {
+            Log::error('[LaravelSupportCenter::CreateCategory] Could not create category', [
+                'category' => $this->categoryForm,
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace(),
+            ]);
+            toast()->danger('Error al crear la categoría')->push();
+            return;
+        }
+
+        $this->categoryModal = false;
+        toast()->success('Categoría creada')->push();
     }
 
     public function render()
