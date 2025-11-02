@@ -78,8 +78,8 @@
         />
 
         <x-slot:actions>
-            <x-mary-button label="Crear Etiqueta" class="btn-primary" wire:click="createTag"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.tagModal = false"/>
+            <x-mary-button label="Crear Etiqueta" class="btn-success" wire:click="createTag"/>
+            <x-mary-button label="Cancelar" class="btn-danger" wire:click="$wire.tagModal = false"/>
         </x-slot:actions>
     </x-mary-modal>
 
@@ -99,8 +99,8 @@
         />
 
         <x-slot:actions>
-            <x-mary-button label="Editar Etiqueta" class="btn-primary" wire:click="editTag({{$editTagForm['id']}})"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$set('editTagModal',false)"/>
+            <x-mary-button label="Editar Etiqueta" class="btn-success" wire:click="editTag({{$editTagForm['id']}})"/>
+            <x-mary-button label="Cancelar" class="btn-danger" wire:click="$set('editTagModal',false)"/>
         </x-slot:actions>
     </x-mary-modal>
 
@@ -108,7 +108,7 @@
         <x-slot name="title">¿Estas seguro de eliminar esta etiqueta?</x-slot>
         <x-slot:actions>
             <x-mary-button label="Eliminar Etiqueta" class="btn-danger" wire:click="confirmDeleteTag({{$tagToDelete}})"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$set('confirmDeleteModal',false)"/>
+            <x-mary-button label="Cancelar" class="btn-primary" wire:click="$set('confirmDeleteModal',false)"/>
         </x-slot:actions>
     </x-mary-modal>
 </div>

@@ -98,8 +98,8 @@
         />
 
         <x-slot:actions>
-            <x-mary-button label="Crear Categoría" class="btn-primary" wire:click="createCategory"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$wire.categoryModal = false"/>
+            <x-mary-button label="Crear Categoría" class="btn-success" wire:click="createCategory"/>
+            <x-mary-button label="Cancelar" class="btn-danger" wire:click="$wire.categoryModal = false"/>
         </x-slot:actions>
     </x-mary-modal>
 
@@ -130,16 +130,16 @@
         />
 
         <x-slot:actions>
-            <x-mary-button label="Editar Categoría" class="btn-primary" wire:click="editCategory({{$editCategoryForm['id']}})"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$set('editCategoryModal',false)"/>
+            <x-mary-button label="Editar Categoría" class="btn-success" wire:click="editCategory({{$editCategoryForm['id']}})"/>
+            <x-mary-button label="Cancelar" class="btn-danger" wire:click="$set('editCategoryModal',false)"/>
         </x-slot:actions>
     </x-mary-modal>
 
     <x-mary-modal wire:model="confirmDeleteModal" title="¿Estas seguro de eliminar esta categoría?">
         <x-slot name="title">¿Estas seguro de eliminar esta categoría?</x-slot>
         <x-slot:actions>
-            <x-mary-button label="Eliminar Categoría" class="btn-danger" wire:click="confirmDeleteCategory({{$categoryToDelete}})"/>
-            <x-mary-button label="Cancelar" class="btn-success" wire:click="$set('confirmDeleteModal',false)"/>
+            <x-mary-button label="Eliminar Categoría" class="btn-warning" wire:click="confirmDeleteCategory({{$categoryToDelete}})"/>
+            <x-mary-button label="Cancelar" class="btn-primary" wire:click="$set('confirmDeleteModal',false)"/>
         </x-slot:actions>
     </x-mary-modal>
 </div>
