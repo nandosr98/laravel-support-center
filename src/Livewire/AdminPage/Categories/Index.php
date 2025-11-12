@@ -121,7 +121,7 @@ class Index extends Component
 
         $categories =  BaseSupportTag::all();
         foreach ($categories as $category) {
-            $this->categoryPriorities[] = ['label' => $category->name, 'value' => $category->name];
+            $this->categoryPriorities[] = ['label' => $category->name, 'key' => $category->name];
         }
         dd($this->categoryPriorities);
     }
