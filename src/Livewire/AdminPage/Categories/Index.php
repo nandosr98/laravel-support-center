@@ -116,10 +116,13 @@ class Index extends Component
         $this->categoryForm = [
             'name' => '',
             'description' => '',
-            'priority' => 'medium',
+            'priority' => '',
         ];
 
-        $this->categoryPriorities = BaseSupportTag::all();
+        $categories =  BaseSupportTag::all();
+        foreach ($categories as $category) {
+            $this->categoryPriorities[] = ['label' => $category->name, 'value' => $category->name];
+        }
     }
 
 
