@@ -5,6 +5,7 @@ namespace LaravelSupportCenter\Livewire\AdminPage\Categories;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use LaravelSupportCenter\Models\BaseSupportCategory;
+use LaravelSupportCenter\Models\BaseSupportTag;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Usernotnull\Toast\Concerns\WireToast;
@@ -28,12 +29,7 @@ class Index extends Component
         'priority' => '',
     ];
 
-    public array $categoryPriorities = [
-        ['key' => 'low', 'label' => 'Baja'],
-        ['key' => 'medium', 'label' => 'Media'],
-        ['key' => 'high', 'label' => 'Alta'],
-        ['key' => 'urgent', 'label' => 'Urgente'],
-    ];
+    public $categoryPriorities = [];
 
     public array $categoryForm = [
         'name' => '',
@@ -113,6 +109,17 @@ class Index extends Component
 
         $this->confirmDeleteModal = true;
         toast()->success('Categoría eliminada')->push();
+    }
+
+    public function mount()
+    {
+        $this->categoryForm = [
+            'name' => '',
+            'description' => '',
+            'priority' => 'medium',
+        ];
+
+        $this->categoryPriorities = BaseSupportTag::all();
     }
 
 
