@@ -123,6 +123,7 @@ class Index extends Component
         foreach ($categories as $category) {
             $this->categoryPriorities[] = ['label' => $category->name, 'value' => $category->name];
         }
+        dd($this->categoryPriorities);
     }
 
 
