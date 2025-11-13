@@ -21,8 +21,9 @@
             <div class="overflow-x-auto">
                 @php
                     $headersInfo = [
-                       ['key' => 'name', 'label' => 'Categoría', 'class' => 'w-1'],
-                       ['key' => 'description', 'label' => 'Description'],
+                       ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
+                       ['key' => 'name', 'label' => 'Nombre'],
+                       ['key' => 'description', 'label' => 'Descripcion'],
                        ['key' => 'priority', 'label' => 'Prioridad'],
                        ['key' => 'tickets_count', 'label' => 'Tickets Asociados'],
                        ['key' => 'created_at', 'label' => 'Creado'],
