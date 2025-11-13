@@ -29,7 +29,12 @@ class Index extends Component
         'priority' => '',
     ];
 
-    public $categoryPriorities = [];
+    public array $categoryPriorities = [
+        ['key' => 'low', 'label' => 'Baja'],
+        ['key' => 'medium', 'label' => 'Media'],
+        ['key' => 'high', 'label' => 'Alta'],
+        ['key' => 'urgent', 'label' => 'Urgente'],
+    ];
 
     public array $categoryForm = [
         'name' => '',
@@ -44,11 +49,6 @@ class Index extends Component
             'description' => '',
             'priority' => '',
         ];
-
-        $categories =  BaseSupportTag::all();
-        foreach ($categories as $category) {
-            $this->categoryPriorities[] = ['label' => $category->name, 'key' => $category->id];
-        }
     }
 
 
@@ -100,7 +100,6 @@ class Index extends Component
     public function editCategory(): void
     {
         try{
-            dd($this->editCategoryForm);
             BaseSupportCategory::find($this->editCategoryForm['id'])->update($this->editCategoryForm);
         } catch (Exception $e) {
             Log::error('[LaravelSupportCenter::EditCategory] Could not edit category', [
