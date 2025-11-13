@@ -37,6 +37,35 @@ class Index extends Component
         'priority' => 'medium',
     ];
 
+    public function mount()
+    {
+        $this->categoryForm = [
+            'name' => '',
+            'description' => '',
+            'priority' => '',
+        ];
+
+        $categories =  BaseSupportTag::all();
+        foreach ($categories as $category) {
+            $this->categoryPriorities[] = ['label' => $category->name, 'key' => $category->id];
+        }
+    }
+
+
+    public function render()
+    {
+        $perPage = 15;
+
+        $categories = BaseSupportCategory::query()
+            ->withCount('tickets')
+            ->latest('created_at')
+            ->paginate($perPage);
+
+        return view('laravel-support-center::livewire.categories.index', [
+            'categories' => $categories,
+        ])->layout(config('support-center.admin-page-layout'));
+    }
+
     public function createCategory(): void
     {
         try{
@@ -71,6 +100,7 @@ class Index extends Component
     public function editCategory(): void
     {
         try{
+            dd($this->editCategoryForm);
             BaseSupportCategory::find($this->editCategoryForm['id'])->update($this->editCategoryForm);
         } catch (Exception $e) {
             Log::error('[LaravelSupportCenter::EditCategory] Could not edit category', [
@@ -109,34 +139,5 @@ class Index extends Component
 
         $this->confirmDeleteModal = true;
         toast()->success('Categoría eliminada')->push();
-    }
-
-    public function mount()
-    {
-        $this->categoryForm = [
-            'name' => '',
-            'description' => '',
-            'priority' => '',
-        ];
-
-        $categories =  BaseSupportTag::all();
-        foreach ($categories as $category) {
-            $this->categoryPriorities[] = ['label' => $category->name, 'key' => $category->name];
-        }
-    }
-
-
-    public function render()
-    {
-        $perPage = 15;
-
-        $categories = BaseSupportCategory::query()
-            ->withCount('tickets')
-            ->latest('created_at')
-            ->paginate($perPage);
-
-        return view('laravel-support-center::livewire.categories.index', [
-            'categories' => $categories,
-        ])->layout(config('support-center.admin-page-layout'));
     }
 }
