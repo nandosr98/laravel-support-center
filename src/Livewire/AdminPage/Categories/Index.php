@@ -58,7 +58,7 @@ class Index extends Component
 
         $categories = BaseSupportCategory::query()
             ->withCount('tickets')
-            ->latest('created_at')
+            ->orderBy('id', 'desc')
             ->paginate($perPage);
 
         return view('laravel-support-center::livewire.categories.index', [

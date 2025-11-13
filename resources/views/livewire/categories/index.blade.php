@@ -5,7 +5,8 @@
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900">Categorías de soporte</h1>
                 <p class="mt-1 text-sm text-gray-500">
-                    Organiza y consulta las categorías utilizadas para clasificar los tickets.
+                    Organiza y consulta las categorías utilizadas para clasificar los tickets.<br>
+                    Estas categorías se mostrarán en la página de soporte para que el usuario pueda seleccionar la que corresponda.
                 </p>
             </div>
             <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:gap-4">
@@ -23,8 +24,8 @@
                     $headersInfo = [
                        ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
                        ['key' => 'name', 'label' => 'Nombre'],
-                       ['key' => 'description', 'label' => 'Descripcion'],
-                       ['key' => 'priority', 'label' => 'Prioridad'],
+                       ['key' => 'description', 'label' => 'Descripción'],
+                       ['key' => 'priority', 'label' => 'Prioridad por Defecto'],
                        ['key' => 'tickets_count', 'label' => 'Tickets Asociados'],
                        ['key' => 'created_at', 'label' => 'Creado'],
                        ['key' => 'updated_at', 'label' => 'Ultima actualización'],
