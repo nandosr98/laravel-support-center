@@ -29,7 +29,6 @@
                     :per-page-values="[3, 5, 10]">
 
                     @scope('user', $row)
-                        {{ $row->user->name ?? $row->email }}
                     @endscope
                     @scope('actions', $row)
                         <div class="flex justify-end gap-2">

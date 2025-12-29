@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['web'])
     ->group(function () {
-        Route::get(config('support-center.route-name'), \LaravelSupportCenter\Livewire\UserPage\BaseSupportUserPage::class)->name('support.user-page');
+        Route::get(config('support-center.route.prefix'), \LaravelSupportCenter\Livewire\UserPage\BaseSupportUserPage::class)->name(config('support-center.route.name'));
     });
 
 Route::middleware(['web', 'auth', 'admin'])->prefix('/admin/support')->group(function () {
@@ -12,14 +12,11 @@ Route::middleware(['web', 'auth', 'admin'])->prefix('/admin/support')->group(fun
 
     Route::prefix('tickets')->group(function () {
         Route::get('/', \LaravelSupportCenter\Livewire\AdminPage\Tickets\Index::class)->name('support.admin-page.tickets');
+        Route::get('/{ticket}', \LaravelSupportCenter\Livewire\AdminPage\Tickets\ViewTicket::class)->name('support.admin-page.tickets.view');
     });
 
     Route::prefix('categories')->group(function () {
        Route::get('/', \LaravelSupportCenter\Livewire\AdminPage\Categories\Index::class)->name('support.admin-page.categories');
-    });
-
-    Route::prefix('agents')->group(function () {
-        Route::get('/', \LaravelSupportCenter\Livewire\AdminPage\Agents\Index::class)->name('support.admin-page.agents');
     });
 
     Route::prefix('tags')->group(function () {

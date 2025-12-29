@@ -73,7 +73,7 @@ return new class extends Migration
 
             $table->longText('message');
             $table->boolean('is_internal')->default(false);
-            $table->enum('sent_via', ['web', 'email', 'telegram', 'whatsapp'])->default('web');
+            $table->enum('sent_via', ['email'])->default('email');
 
             $table->timestamps();
         });
@@ -123,22 +123,6 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->primary(['ticket_id', 'tag_id']);
-        });
-
-        /**
-         * AGENTES
-         */
-        Schema::create('support_agents', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->enum('role', ['agent', 'admin'])->default('agent');
-            $table->boolean('active')->default(true);
-
-            $table->timestamps();
         });
     }
 
