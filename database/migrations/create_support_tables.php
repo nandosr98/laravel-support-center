@@ -128,7 +128,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('support_agents');
         Schema::dropIfExists('support_ticket_tag');
         Schema::dropIfExists('support_tags');
         Schema::dropIfExists('support_status_logs');

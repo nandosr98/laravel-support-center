@@ -1,6 +1,6 @@
 @php use Illuminate\Support\Str; @endphp
 <div class="py-8" wire:keydown.escape.window="closeCreateModal">
-    <div class="max-w-6xl mx-auto px-6 space-y-6">
+    <div class="w-full mx-auto px-6 space-y-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900">Categorías de soporte</h1>

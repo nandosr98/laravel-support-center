@@ -1,5 +1,5 @@
 <div class="py-8">
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="w-full mx-auto px-6">
         <div class="bg-white shadow rounded-lg">
             <div class="px-6 py-4 border-b border-gray-200">
                 <h1 class="text-2xl font-semibold text-gray-900">Tickets de soporte</h1>
@@ -28,7 +28,8 @@
                     per-page="ticketsLimit"
                     :per-page-values="[3, 5, 10]">
 
-                    @scope('user', $row)
+                    @scope('cell_user', $row)
+                        {{ $row->user ? $row->user->name : $row->email }}
                     @endscope
                     @scope('actions', $row)
                         <div class="flex justify-end gap-2">

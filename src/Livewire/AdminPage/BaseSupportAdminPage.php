@@ -20,6 +20,6 @@ class BaseSupportAdminPage extends Component
 
         return view(config('support-center.admin-page-livewire-view'), [
             'tickets' => $tickets,
-        ])->layout(config('support-center.admin-page-layout'));
+        ]);
     }
 }

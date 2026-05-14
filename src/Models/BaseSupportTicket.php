@@ -51,11 +51,6 @@ class BaseSupportTicket extends Model
         return $this->belongsTo(config('support-center.models.user'));
     }
 
-    public function agent(): BelongsTo
-    {
-        return $this->belongsTo(config('support.models.user'), 'assigned_to');
-    }
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(BaseSupportCategory::class);

@@ -1,5 +1,5 @@
 <div class="py-8">
-    <div class="max-w-6xl mx-auto px-6 space-y-6">
+    <div class="w-full mx-auto px-6 space-y-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900">Etiquetas de soporte</h1>
@@ -19,7 +19,7 @@
             <div class="overflow-x-auto">
                 @php
                     $headersInfo = [
-                       ['key' => 'name', 'label' => 'Etiqueta', 'class' => 'w-1'],
+                       ['key' => 'name', 'label' => 'Etiqueta'],
                        ['key' => 'color', 'label' => 'Color'],
                        ['key' => 'created_at', 'label' => 'Creado'],
                        ['key' => 'updated_at', 'label' => 'Ultima actualización'],
