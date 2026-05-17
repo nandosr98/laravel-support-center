@@ -2,6 +2,8 @@
 
 namespace LaravelSupportCenter\Livewire\UserPage;
 
+use Illuminate\Validation\Rule;
+use LaravelSupportCenter\Models\BaseSupportCategory;
 use LaravelSupportCenter\Models\BaseSupportTicket;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -15,25 +17,39 @@ class BaseSupportUserPage extends Component
     public $email;
     public $subject;
     public $description;
+    public $categories;
     public $attachments = [];
 
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'email' => 'required|email',
-        'subject' => 'required|string|max:255',
-        'description' => 'required|string',
-        'attachments.*' => 'file|max:2048',
-    ];
+    protected function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'subject' => [
+                Rule::in($this->categories->pluck('name')->toArray()),
+            ],
+            'description' => 'required|string',
+            'attachments.*' => 'file|max:2048',
+        ];
+    }
 
+    public function mount() {
+
+        $this->categories = BaseSupportCategory::all();
+
+    }
     public function render()
     {
-        return view(config('support-center.user-page-livewire-view'), [])
+
+        return view(config('support-center.user-page-livewire-view'), [
+            'categories' => $this->categories,
+        ])
             ->layout(config('support-center.user-page-layout'));
     }
 
     public function submit()
     {
-        $this->validate($this->rules);
+        $this->validate();
 
         $ticket = BaseSupportTicket::create([
             'name' => $this->name,

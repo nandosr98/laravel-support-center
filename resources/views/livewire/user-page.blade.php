@@ -22,11 +22,19 @@
                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
             @error('email') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
         </div>
-
         <div>
             <label class="block text-sm font-medium text-gray-700">Asunto</label>
-            <input type="text" wire:model.defer="subject"
-                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            <select wire:model.defer="subject"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+
+                <option value="">Selecciona un asunto</option>
+
+                @foreach($categories as $category)
+                    <option value="{{ $category->name }}">
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
             @error('subject') <p class="text-sm text-red-600 mt-1">{{ $message }}</p> @enderror
         </div>
 
