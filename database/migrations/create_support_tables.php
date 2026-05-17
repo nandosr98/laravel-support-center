@@ -24,7 +24,7 @@ return new class extends Migration
          */
         Schema::create('support_tickets', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
+            $table->uuid()->unique();
 
             $table->foreignId('user_id')
                 ->nullable()
@@ -48,7 +48,7 @@ return new class extends Migration
 
             $table->enum('status', ['open', 'in_progress', 'resolved', 'closed'])->default('open');
             $table->enum('priority', ['low', 'medium', 'high', 'urgent'])->default('medium');
-            $table->enum('channel', ['web', 'email', 'telegram', 'whatsapp', 'api'])->default('web');
+            $table->enum('channel', ['web', 'email', 'telegram', 'whatsApp', 'api'])->default('web');
 
             $table->timestamp('resolved_at')->nullable();
             $table->timestamp('closed_at')->nullable();
@@ -56,9 +56,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        /**
-         * MENSAJES
-         */
         Schema::create('support_messages', function (Blueprint $table) {
             $table->id();
 
@@ -71,11 +68,35 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
+            $table->enum('sender_type', [
+                'admin',
+                'customer',
+            ])->default('customer');
+
+            $table->string('sender_name')->nullable();
+            $table->string('sender_email')->nullable();
+
             $table->longText('message');
+
             $table->boolean('is_internal')->default(false);
-            $table->enum('sent_via', ['email'])->default('email');
+
+            $table->enum('sent_via', [
+                'web',
+                'email',
+                'telegram',
+                'whatsApp',
+                'api',
+                'system',
+            ])->default('web');
+
+            $table->timestamp('read_at')->nullable();
+            $table->string('external_id')->nullable();
 
             $table->timestamps();
+
+            $table->index(['ticket_id', 'created_at']);
+            $table->index('sender_type');
+            $table->index('is_internal');
         });
 
         /**

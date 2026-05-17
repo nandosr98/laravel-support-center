@@ -20,6 +20,9 @@ class BaseSupportMessage extends Model
         'is_internal',
         'attachment_path',
         'sent_via',
+        'sender_type',
+        'sender_name',
+        'sender_email',
     ];
 
     protected $casts = [

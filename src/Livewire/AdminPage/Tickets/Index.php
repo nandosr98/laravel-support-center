@@ -2,7 +2,6 @@
 
 namespace LaravelSupportCenter\Livewire\AdminPage\Tickets;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use LaravelSupportCenter\Models\BaseSupportTicket;
 use Livewire\Component;
@@ -11,6 +10,7 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+    public $selectedTicket = null;
 
     public function render()
     {
@@ -23,16 +23,14 @@ class Index extends Component
         ])->layout(config('support-center.admin-page-layout'));
     }
 
-    public function viewTicket($ticketId): RedirectResponse
+    public function viewTicket($ticketId)
     {
         $ticket = BaseSupportTicket::find($ticketId);
-        if ($ticket) {
-            return redirect()->route('support.admin-page.tickets.view', ['ticket' => $ticket->id]);
+        if(!$ticket) {
+            toast()->danger('Ticket No encontrado')->push();
+
         }
 
-        toast()->danger('Ticket No encontrado')->push();
-        Log::error('Ticket no encontrado: ID ' . $ticketId);
-
-        return redirect()->route('support.admin-page.tickets');
+        $this->selectedTicket = $ticket;
     }
 }
