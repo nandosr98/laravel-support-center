@@ -32,6 +32,7 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->string('email')->nullable();
+            $table->string('name')->nullable();
 
             $table->foreignId('assigned_to')
                 ->nullable()

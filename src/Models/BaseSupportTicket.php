@@ -32,6 +32,7 @@ class BaseSupportTicket extends Model
         'category_id',
         'resolved_at',
         'closed_at',
+        'name',
     ];
 
     protected $casts = [

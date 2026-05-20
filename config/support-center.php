@@ -11,6 +11,7 @@ return [
     ],
     'media_collection' => 'support_attachments',
     'user-page-livewire-view' => 'laravel-support-center::livewire.user-page',
+    'user-page-thread-livewire-view' => 'laravel-support-center::livewire.view-support-thread-page',
     'user-page-layout' => 'layouts.app',
 
     'admin-page-livewire-view' => 'laravel-support-center::livewire.admin-page',

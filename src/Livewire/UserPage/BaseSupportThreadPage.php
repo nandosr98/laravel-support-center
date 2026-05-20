@@ -9,43 +9,27 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 
-class BaseSupportUserPage extends Component
+class BaseSupportThreadPage extends Component
 {
     use WithFileUploads;
 
-    public $name;
-    public $email;
-    public $subject;
-    public $description;
-    public $category;
-    public $categories;
-    public $attachments = [];
+    public $ticket;
 
     protected function rules(): array
     {
-        return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'subject' => 'required|string|max:255',
-            'category' => [
-                Rule::in($this->categories->pluck('id')->toArray()),
-            ],
-            'description' => 'required|string',
-            'attachments.*' => 'file|max:2048',
-        ];
+
     }
 
-    public function mount() {
+    public function mount($uuid) {
 
-        $this->categories = BaseSupportCategory::all();
+        $ticket = BaseSupportTicket::where('uuid', $uuid)->firstOrFail();
+        $this->ticket = $ticket;
 
     }
     public function render()
     {
 
-        return view(config('support-center.user-page-livewire-view'), [
-            'categories' => $this->categories,
-        ])
+        return view(config('support-center.user-page-thread-livewire-view'), [])
             ->layout(config('support-center.user-page-layout'));
     }
 
@@ -57,7 +41,6 @@ class BaseSupportUserPage extends Component
             'name' => $this->name,
             'email' => $this->email,
             'subject' => $this->subject,
-            'category_id' => $this->category,
             'description' => $this->description,
         ]);
 
