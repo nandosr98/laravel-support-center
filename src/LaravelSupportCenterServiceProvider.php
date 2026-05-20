@@ -7,6 +7,7 @@ use LaravelSupportCenter\Livewire\AdminPage\BaseSupportAdminPage;
 use LaravelSupportCenter\Livewire\AdminPage\Tickets\Index as TicketsIndex;
 use LaravelSupportCenter\Livewire\AdminPage\Categories\Index as CategoriesIndex;
 use LaravelSupportCenter\Livewire\AdminPage\Tags\Index as TagsIndex;
+use LaravelSupportCenter\Livewire\UserPage\BaseSupportThreadPage;
 use LaravelSupportCenter\Livewire\UserPage\BaseSupportUserPage;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
@@ -27,11 +28,14 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->publishes([
-            __DIR__ . '/Http/Controllers/SupportController.php' =>
-                app_path('Http/Controllers/Vendor/SupportController.php'),
-        ], 'support-center-user-controller');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'laravel-support-center');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         $this->publishEmailTemplates();
+
+        $this->publishConfig();
+        $this->publishViews();
+        $this->publishMigrations();
 
         $this->registerLivewireComponents();
         $this->registerBladeComponents();
@@ -51,6 +55,7 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
         Livewire::component('laravel-support-center.livewire.tickets.index', TicketsIndex::class);
         Livewire::component('laravel-support-center.livewire.categories.index', CategoriesIndex::class);
         Livewire::component('laravel-support-center.livewire.tags.index', TagsIndex::class);
+        Livewire::component('laravel-support-center.livewire.user-page-thread', BaseSupportThreadPage::class);
     }
 
     private function publishEmailTemplates(): void
@@ -65,5 +70,24 @@ class LaravelSupportCenterServiceProvider extends PackageServiceProvider
             __DIR__ . '../resources/views/emails/admin/message-received-confirmation.blade.php' =>
                 app_path('../resources/emails/Vendor/admin/message-received-confirmation.blade.php'),
         ], 'support-center-emails-admin-confirmation-message-view');
+    }
+
+    protected function publishConfig(): void
+    {
+        $this->publishes([__DIR__ . '/../config/support-center.php' => config_path('support-center.php')], 'laravel-support-center-config');
+    }
+
+    protected function publishViews(): void
+    {
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/support-center'),
+        ], 'laravel-support-center-views');
+    }
+
+    protected function publishMigrations(): void
+    {
+        $this->publishes([
+            __DIR__.'/../database/migrations' => database_path('migrations'),
+        ], 'laravel-support-center-migrations');
     }
 }
